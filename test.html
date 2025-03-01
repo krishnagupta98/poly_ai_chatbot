@@ -3,30 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Poly - Your Virtual Assistant, here to help you with your queries in real-time.">
+    <meta name="keywords" content="AI Chatbot, Virtual Assistant, AI Helper, Poly Bot">
+    <meta name="author" content="Your Name or Company">
+    
     <title>Poly Virtual Assistant</title>
+
+    <!-- Favicon (Optional) -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Preload Stylesheet for Faster Loading -->
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Main Website Information -->
     <div id="website-info">
-        Welcome to Poly<br>Your Virtual Assistant
+        <h1>Welcome to Poly</h1>
+      <h2> <p>Your Virtual Assistant</p></h2>
     </div>
 
-    <div id="chat-icon">
-    </div>
+    <!-- Chat Icon -->
+    <div id="chat-icon" role="button" aria-label="Open Chatbot"></div>
 
-    <div id="chat-box">
+    <!-- Chat Box -->
+    <div id="chat-box" aria-live="polite">
         <div id="chat-header">
             <div id="chat-logo">Poly Bot</div>
-            <div id="chat-close">✕</div>
+            <button id="chat-close" aria-label="Close Chat">✕</button>
         </div>
-        <div id="chat-messages">
-        </div>
+        <div id="chat-messages"></div>
         <div id="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Type your question...">
-            <button id="chat-send"></button>
+            <input type="text" id="chat-input" placeholder="Type your question..." aria-label="Chat Input">
+            <button id="chat-send" aria-label="Send Message"></button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
+
 </body>
 </html>
