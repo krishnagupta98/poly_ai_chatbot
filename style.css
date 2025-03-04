@@ -87,6 +87,8 @@ body.blurred::before {
 
 #chat-close {
     cursor: pointer;
+    background-color: transparent;
+    border-color: transparent;
 }
 
 /* Chat Messages */
