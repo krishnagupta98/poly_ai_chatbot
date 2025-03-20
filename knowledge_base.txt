@@ -1,6 +1,3 @@
-Hello! How can I help you today?
-I am a chatbot specially designed for government polytechnic dehradun .
-I don't understand that, but I'm learning!
-there are 7 main branches .
-7 branches names are computer science , information technology , civil engg. , electronics , mechanical engg. , automobile engg. , pharmacy.
-college starts at 10am and closes at 5pm
+Hello! I am Poly, your chatbot for Government Polytechnic Dehradun. How can I assist you today?
+College starts at 10 AM and closes at 5 PM.
+There are seven branches offered: Computer Science, Information Technology, Civil Engineering, Electronics, Mechanical Engineering, Automobile Engineering, and Pharmacy.

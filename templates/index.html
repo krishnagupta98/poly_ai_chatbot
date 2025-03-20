@@ -13,8 +13,8 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- Preload Stylesheet for Faster Loading -->
-    <link rel="preload" href="style.css" as="style">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="{{ url_for('static', filename='css/style.css') }}" as="style">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
@@ -41,7 +41,7 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="script.js" defer></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 
 </body>
 </html>
