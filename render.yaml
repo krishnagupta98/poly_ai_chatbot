@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: Poly-Chatbot  # Change to your app name
+    runtime: python
+    region: singapore  # Choose your preferred region
+    plan: free  # Use 'starter' or 'pro' for more resources
+    envVars:
+      - key: FLASK_ENV
+        value: production
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app  # Change 'app' to your main Python file
