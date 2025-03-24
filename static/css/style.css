@@ -13,10 +13,10 @@ body {
 
 @keyframes backgroundAnimation {
     0% {
-        background: linear-gradient(to bottom, #ffffff, #e0f2fe);
+        background: linear-gradient(to bottom, #ffffff, #93a9c5);
     }
     100% {
-        background: linear-gradient(to bottom, #e0f2fe, #ffffff);
+        background: linear-gradient(to bottom, #efefef, #93a9c5);
     }
 }
 

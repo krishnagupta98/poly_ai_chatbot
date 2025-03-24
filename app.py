@@ -91,7 +91,7 @@ def chat():
         return jsonify({"reply": bot_reply})
     except Exception as e:
         logger.error(f"Error in /chat route: {e}")
-        return jsonify({"reply": "An error occurred while processing your request."}), 500
+        return jsonify({"reply": "i am not well confident for this query . Please contact the institution."}), 500
 
 @app.route("/")
 def home():
@@ -108,7 +108,7 @@ try:
 except Exception as e:
     logger.error(f"Error loading SentenceTransformer model: {e}")
 
-# Load Knowledge Base
+# Loading Knowledge Base
 def load_knowledge_base():
     try:
         if os.path.exists("knowledge_base.txt"):
@@ -125,11 +125,10 @@ def load_knowledge_base():
 knowledge_base = load_knowledge_base()
 knowledge_embeddings = retrieval_model.encode(knowledge_base, convert_to_tensor=True) if knowledge_base else None
 
-# Initialize the spell checker
+# Initialize the  spelling checker
 spell = SpellChecker()
 
 def correct_spelling(user_message):
-    # Split the message into words and correct each word
     corrected_message = ' '.join([spell.candidates(word).pop() if spell.unknown([word]) else word for word in user_message.split()])
     return corrected_message
 
@@ -143,13 +142,12 @@ def retrieve_knowledge(user_message):
         scores = util.pytorch_cos_sim(user_embedding, knowledge_embeddings)[0]
         best_match_idx = scores.argmax().item()
         logger.debug(f"Best match index: {best_match_idx}, Score: {scores[best_match_idx]}")
-        return knowledge_base[best_match_idx]  # Return the closest factual answer
+        return knowledge_base[best_match_idx]  
     except Exception as e:
         logger.error(f"Error retrieving knowledge: {e}")
         return "Error processing request."
 
 def generate_response(user_message):
-    # Correct spelling before retrieving knowledge
     corrected_message = correct_spelling(user_message)
     relevant_fact = retrieve_knowledge(corrected_message)
     return relevant_fact
