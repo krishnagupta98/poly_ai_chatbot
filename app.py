@@ -5,6 +5,7 @@ from spellchecker import SpellChecker
 import os
 import logging
 
+#intialising flask 
 app = Flask(__name__)
 CORS(app)
 
@@ -19,7 +20,7 @@ try:
 except Exception as e:
     logger.error(f"Error loading SentenceTransformer model: {e}")
 
-# Load Knowledge Base
+# Loading Knowledge Base
 def load_knowledge_base():
     try:
         if os.path.exists("knowledge_base.txt"):
@@ -36,26 +37,25 @@ def load_knowledge_base():
 knowledge_base = load_knowledge_base()
 knowledge_embeddings = retrieval_model.encode(knowledge_base, convert_to_tensor=True) if knowledge_base else None
 
-# Initialize the spell checker
+#intialising spelling checker
 spell = SpellChecker()
 
 def correct_spelling(user_message):
-    # Split the message into words and correct each word
     corrected_words = []
     for word in user_message.split():
         if spell.unknown([word]):
-            # Get the best candidate for the misspelled word
             candidates = spell.candidates(word)
             if candidates:
-                corrected_word = max(candidates, key=spell.word_probability)  # Choose the most probable candidate
+                corrected_word = max(candidates, key=spell.word_probability) 
                 corrected_words.append(corrected_word)
             else:
-                corrected_words.append(word)  # If no candidates, keep the original word
+                corrected_words.append(word)  
         else:
-            corrected_words.append(word)  # If the word is correct, keep it
+            corrected_words.append(word)
     corrected_message = ' '.join(corrected_words)
     return corrected_message
 
+#loading the knowledge base
 def retrieve_knowledge(user_message):
     if not knowledge_base:
         logger.warning("Knowledge base is empty.")
@@ -66,22 +66,24 @@ def retrieve_knowledge(user_message):
         scores = util.pytorch_cos_sim(user_embedding, knowledge_embeddings)[0]
         best_match_idx = scores.argmax().item()
         logger.debug(f"Best match index: {best_match_idx}, Score: {scores[best_match_idx]}")
-        return knowledge_base[best_match_idx]  # Return the closest factual answer
+        return knowledge_base[best_match_idx]  
     except Exception as e:
         logger.error(f"Error retrieving knowledge: {e}")
         return "Error processing request."
-
+    
+#generating chatbot response
 def generate_response(user_message):
-    # Correct spelling before retrieving knowledge
+
     corrected_message = correct_spelling(user_message)
     relevant_fact = retrieve_knowledge(corrected_message)
     return relevant_fact
 
+#api end point
 @app.route("/chat", methods=["POST"])
 def chat():
     try:
         user_message = request.json.get("message", "")
-        if not user_message:  # Check if the message is empty or None
+        if not user_message:  
             logger.warning("Received empty user message.")
             return jsonify({"reply": "Please provide a message."}), 400
         
@@ -152,6 +154,7 @@ def generate_response(user_message):
     relevant_fact = retrieve_knowledge(corrected_message)
     return relevant_fact
 
+#the end point
 @app.route("/chat", methods=["POST"])
 def chat():
     try:
